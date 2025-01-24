@@ -166,6 +166,35 @@ POST /auth/login
 }
 ```
 
+## Profile Route Documentation
+
+## Route Name: `/auth/profile`
+
+## Description:
+The `/auth/profile` route allows users to retrieve their profile information. This route is secured and requires authentication to access.
+
+## Usage Instructions:
+To access the profile information, send a GET request to the `/auth/profile` endpoint. Ensure that the user is authenticated before making the request.
+
+```javascript
+// Example usage in user.controller.js
+app.get('/auth/profile', authenticateUser, (req, res) => {
+    // Logic to retrieve and return user profile information
+});
+```
+
+## Dependencies:
+- Authentication middleware to ensure the user is logged in.
+
+## Examples:
+1. **Fetching User Profile**:
+   When a user accesses their profile, the following process occurs:
+   - The request is authenticated.
+   - The user's profile information is retrieved and returned in the response.
+
+## Notes:
+Ensure that the authentication middleware is properly integrated to protect the profile route.
+
 ## Logout Feature Documentation
 
 ## Feature Name: Logout
