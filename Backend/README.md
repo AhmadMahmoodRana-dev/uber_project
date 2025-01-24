@@ -91,3 +91,77 @@ curl -X POST http://your-api-url/auth/register \
 - Password is hashed before storing in the database
 - A JWT token is generated and returned upon successful registration
 - Email must be unique in the system
+
+## Login User
+Authenticate and login an existing user.
+
+### Endpoint
+```
+POST /auth/login
+```
+
+### Request Body
+```json
+{
+  "email": "user@example.com",
+  "password": "yourpassword"
+}
+```
+
+### Request Body Parameters
+| Parameter | Type | Required | Description | Validation Rules |
+|-----------|------|----------|-------------|-----------------|
+| email | string | Yes | User's email address | Must be a valid email format |
+| password | string | Yes | User's password | Minimum 8 characters |
+
+### Responses
+
+#### Success Response
+**Status Code:** 200 (OK)
+```json
+{
+  "message": "Logged in successfully",
+  "token": "jwt_token_here",
+  "user": {
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "user@example.com"
+  }
+}
+```
+
+#### Error Responses
+
+##### Invalid Credentials
+**Status Code:** 401 (Unauthorized)
+```json
+{
+  "message": "Invalid email or password"
+}
+```
+
+##### Invalid Data Format
+**Status Code:** 400 (Bad Request)
+```json
+{
+  "message": "Invalid data",
+  "errors": [
+    {
+      "msg": "Invalid Email",
+      "param": "email",
+      "location": "body"
+    }
+  ]
+}
+```
+
+##### Server Error
+**Status Code:** 500 (Internal Server Error)
+```json
+{
+  "message": "Error logging in",
+  "error": "Error details"
+}
+```
