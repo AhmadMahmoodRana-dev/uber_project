@@ -165,3 +165,35 @@ POST /auth/login
   "error": "Error details"
 }
 ```
+
+## Logout Feature Documentation
+
+## Feature Name: Logout
+
+## Description:
+The Logout feature allows users to securely log out of the application. Upon logging out, a token is generated and added to a blacklist to prevent further access with that token.
+
+## Usage Instructions:
+To log out a user, call the logout function in your controller. This function will generate a new token and add it to the blacklist.
+
+```javascript
+// Example usage in user.controller.js
+const { logout } = require('../middlewares/auth.middleware');
+
+app.post('/logout', (req, res) => {
+    logout(req, res);
+});
+```
+
+## Dependencies:
+- `jsonwebtoken`: For token generation.
+- `blacklistToken.model.js`: To manage blacklisted tokens.
+
+## Examples:
+1. **Logging Out a User**:
+   When a user logs out, the following process occurs:
+   - A token is generated.
+   - The token is stored in the blacklist model.
+
+## Notes:
+Ensure that the blacklist token model is properly set up to handle the tokens and that the middleware is correctly integrated into your routes.

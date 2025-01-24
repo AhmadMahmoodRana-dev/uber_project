@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { body } from "express-validator";
-import { loginUser, registerUser } from "../controller/user.controller.js";
+import { getUserProfile, loginUser, logoutUser, registerUser } from "../controller/user.controller.js";
+import authUser from "../middlewares/auth.middleware.js";
 const auth = Router();
 
 auth.post("/auth/register", [
@@ -14,5 +15,8 @@ auth.post("/auth/login" , [
   body("email").isEmail().withMessage("Invalid Email"),
   body("password").isLength({ min: 8 }).withMessage("Password must be atleast 8 characters")
 ],loginUser)
+
+auth.get("/auth/profile",authUser,getUserProfile)
+auth.get("/auth/logout",authUser,logoutUser)
 
 export default auth;
