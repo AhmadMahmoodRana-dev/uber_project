@@ -11,7 +11,10 @@ export const registerUser = async (req, res, next) => {
   }
   try {
     const { fullname, password, email } = req.body;
-    console.log(req.body);
+    const isUserExist = await userModel.findOne({ email });
+    if (isUserExist) {
+      return res.status(400).json({ message: "User already exist" });
+    }
     const hashedpassword = await userModel.hashPassword(password);
     const user = await createUser({
       firstname: fullname.firstname,
@@ -56,12 +59,12 @@ export const loginUser = async (req, res, next) => {
 };
 
 export const getUserProfile = async (req, res, next) => {
-    res.status(200).json(req.user);
+  res.status(200).json(req.user);
 };
 
 
 export const logoutUser = async (req, res, next) => {
-    res.clearCookie("token");
-    const token = req.cookies.token || req.headers.authorization.split(" ")[1];
-    res.status(200).json({ message: "Logged out successfully" });
-  };
+  res.clearCookie("token");
+  const token = req.cookies.token || req.headers.authorization.split(" ")[1];
+  res.status(200).json({ message: "Logged out successfully" });
+};

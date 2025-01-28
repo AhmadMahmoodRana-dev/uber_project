@@ -226,3 +226,82 @@ app.post('/logout', (req, res) => {
 
 ## Notes:
 Ensure that the blacklist token model is properly set up to handle the tokens and that the middleware is correctly integrated into your routes.
+
+## Captain Registration
+
+The `registerCaptain` function handles the registration of a new captain in the system.
+
+### Functionality:
+- Validates the incoming request data for errors.
+- Checks if a captain with the provided email already exists. If so, it returns an error response.
+- Hashes the password and creates a new captain record in the database.
+- Generates an authentication token for the newly created captain.
+- Responds with a success message, including the captain's details and the token.
+
+### Usage:
+This function is typically invoked via an HTTP POST request to the registration endpoint, with the necessary captain details included in the request body.
+
+## API Request and Response
+
+### Request
+- **Method**: `POST`
+- **Endpoint**: `/api/auth/registercaptain`
+- **Request Body**:
+```json
+{
+  "fullname": {
+    "firstname": "string",
+    "lastname": "string"
+  },
+  "email": "string",
+  "password": "string",
+  "vehicle": {
+    "color": "string",
+    "plate": "string",
+    "capacity": "number",
+    "vehicletype": "string"
+  }
+}
+```
+
+### Response
+- **Success (201 Created)**:
+```json
+{
+  "message": "Captain created successfully",
+  "token": "string",
+  "captain": {
+    "id": "string",
+    "fullname": {
+      "firstname": "string",
+      "lastname": "string"
+    },
+    "email": "string",
+    "vehicle": {
+      "color": "string",
+      "plate": "string",
+      "capacity": "number",
+      "vehicletype": "string"
+    }
+  }
+}
+```
+- **Error (400 Bad Request)**:
+```json
+{
+  "errors": [
+    {
+      "msg": "Error message",
+      "param": "parameter name",
+      "location": "body"
+    }
+  ]
+}
+```
+- **Error (500 Internal Server Error)**:
+```json
+{
+  "message": "Error creating captain",
+  "error": "error message"
+}
+```
