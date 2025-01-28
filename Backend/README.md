@@ -305,3 +305,100 @@ This function is typically invoked via an HTTP POST request to the registration 
   "error": "error message"
 }
 ```
+
+## Captain Authentication Routes
+
+### 1. Login Captain
+- **Method**: `POST`
+- **Endpoint**: `/api/auth/loginCaptain`
+- **Request Body**:
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+- **Response**:
+  - **Success (200 OK)**:
+  ```json
+  {
+    "message": "Captain logged in successfully",
+    "token": "string",
+    "captain": {
+      "id": "string",
+      "fullname": {
+        "firstname": "string",
+        "lastname": "string"
+      },
+      "email": "string",
+      "vehicle": {
+        "color": "string",
+        "plate": "string",
+        "capacity": "number",
+        "vehicletype": "string"
+      }
+    }
+  }
+  ```
+  - **Error (400 Bad Request)**:
+  ```json
+  {
+    "message": "Invalid email or password"
+  }
+  ```
+  - **Error (500 Internal Server Error)**:
+  ```json
+  {
+    "message": "Error logging in",
+    "error": "error message"
+  }
+  ```
+
+### 2. Logout Captain
+- **Method**: `GET`
+- **Endpoint**: `/api/auth/logoutCaptain`
+- **Response**:
+  - **Success (200 OK)**:
+  ```json
+  {
+    "message": "Captain logged out successfully"
+  }
+  ```
+
+### 3. Get Captain Profile
+- **Method**: `GET`
+- **Endpoint**: `/api/auth/captainProfile`
+- **Response**:
+  - **Success (200 OK)**:
+  ```json
+  {
+    "message": "Captain profile retrieved successfully",
+    "captain": {
+      "id": "string",
+      "fullname": {
+        "firstname": "string",
+        "lastname": "string"
+      },
+      "email": "string",
+      "vehicle": {
+        "color": "string",
+        "plate": "string",
+        "capacity": "number",
+        "vehicletype": "string"
+      }
+    }
+  }
+  ```
+  - **Error (404 Not Found)**:
+  ```json
+  {
+    "message": "Captain not found"
+  }
+  ```
+  - **Error (500 Internal Server Error)**:
+  ```json
+  {
+    "message": "Error retrieving captain profile",
+    "error": "error message"
+  }
+  ```
